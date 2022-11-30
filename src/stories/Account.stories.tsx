@@ -4,14 +4,12 @@ import React from "react";
 import { Account } from "../domain/account/account";
 import { makeAccount, makeTransaction } from "../domain/factories";
 import { createStore } from "../domain/store/store";
-import {
-  TransactionTypeEnum,
-  TransactionGategoryEnum,
-} from "../domain/transactions/transaction";
+import { TransactionTypeEnum } from "../domain/transactions/transaction";
 import GoCashStoryProvider from "../GoCashStoryProvider";
 import { StubAccountGateway } from "../infrastructure/gateways/stub-account.gateway";
 import { StubTransactionGateway } from "../infrastructure/gateways/stub-transaction.gateway";
-import AccountView from "../ui/components/AccountView";
+import AccountsView from "../ui/components/Accounts";
+import { AnimateSharedLayout } from "framer-motion";
 
 export default {
   title: "AccountView",
@@ -19,97 +17,130 @@ export default {
     loading: {
       type: "boolean",
     },
+    delay: {
+      type: "number",
+    },
   },
 } as Meta;
 
 interface Args {
   loading?: boolean;
+  delay?: number;
 }
 
-export const AccountViewStory: Story<Args> = ({ loading = false }) => {
-  const account: Account = makeAccount({
-    label: "Compte personnel de Mr John Doe",
-    balance: 1242.64,
-  });
+export const AccountViewStory: Story<Args> = ({
+  loading = false,
+  delay = 300,
+}) => {
+  const accounts: Account[] = [
+    makeAccount({
+      label: "Compte Chèque",
+      balance: 1242.64,
+    }),
+    makeAccount({
+      label: "Livret A",
+      balance: 600,
+    }),
+    makeAccount({
+      label: "Livret de développement durable",
+      balance: 0,
+    }),
+  ];
 
   const transactions = [
     makeTransaction({
       label: "Péage",
       amount: 12.4,
-      accountId: account.id,
+      accountId: accounts[0].id,
       date: "2022-08-12",
     }),
     makeTransaction({
       amount: 1534.23,
       label: "Virement salaire de Juillet",
-      accountId: account.id,
+      accountId: accounts[0].id,
       date: "2022-08-12",
-      category: TransactionGategoryEnum.UNKNOWN,
       type: TransactionTypeEnum.INCOMING,
     }),
     makeTransaction({
       label: "Abonnement téléphone",
       amount: 34.99,
-      accountId: account.id,
-      category: TransactionGategoryEnum.UNKNOWN,
+      accountId: accounts[0].id,
       date: "2022-08-11",
     }),
     makeTransaction({
       label: "Taxe foncière",
       amount: 89.22,
-      accountId: account.id,
+      accountId: accounts[0].id,
       date: "2022-08-10",
-      category: TransactionGategoryEnum.UNKNOWN,
     }),
     makeTransaction({
       label: "Essence",
       amount: 75.23,
-      accountId: account.id,
+      accountId: accounts[0].id,
       date: "2022-08-10",
-      category: TransactionGategoryEnum.UNKNOWN,
     }),
     makeTransaction({
       label: "Courses",
-      accountId: account.id,
+      accountId: accounts[0].id,
       amount: 134.54,
       date: "2022-08-10",
-      category: TransactionGategoryEnum.UNKNOWN,
     }),
     makeTransaction({
       label: "Carte Bancaire - paiement",
-      accountId: account.id,
+      accountId: accounts[0].id,
       amount: 234.99,
       date: "2022-08-09",
-      category: TransactionGategoryEnum.UNKNOWN,
     }),
     makeTransaction({
       label: "Retrait distributeur",
       amount: 150,
-      accountId: account.id,
+      accountId: accounts[0].id,
       date: "2022-08-09",
-      category: TransactionGategoryEnum.UNKNOWN,
     }),
     makeTransaction({
       label: "Crédit immobilier",
-      accountId: account.id,
+      accountId: accounts[0].id,
       amount: 1104.76,
       date: "2022-08-05",
-      category: TransactionGategoryEnum.UNKNOWN,
+    }),
+
+    makeTransaction({
+      amount: 200,
+      label: "Virement de Août",
+      accountId: accounts[1].id,
+      date: "2022-08-05",
+      type: TransactionTypeEnum.INCOMING,
+    }),
+    makeTransaction({
+      amount: 200,
+      label: "Virement de Juillet",
+      accountId: accounts[1].id,
+      date: "2022-07-05",
+      type: TransactionTypeEnum.INCOMING,
+    }),
+    makeTransaction({
+      amount: 200,
+      label: "Virement de Juin",
+      accountId: accounts[1].id,
+      date: "2022-06-05",
+      type: TransactionTypeEnum.INCOMING,
     }),
   ];
 
-  const transactionGateway = new StubTransactionGateway(200);
-  const accountGateway = new StubAccountGateway(200);
+  const transactionGateway = new StubTransactionGateway(delay);
+  const accountGateway = new StubAccountGateway(delay);
   transactionGateway.feedWithTransaction(transactions);
-  accountGateway.feedWithAccount([account]);
+  accountGateway.feedWithAccount(accounts);
   const store = createStore({ transactionGateway, accountGateway });
   const providers = { store, transactionGateway, accountGateway };
 
   return (
-    <GoCashStoryProvider providers={providers}>
-      <div className="bg-slate-200 p-4 ">
-        <AccountView accountId={account.id} />
-      </div>
-    </GoCashStoryProvider>
+    <AnimateSharedLayout>
+      <GoCashStoryProvider providers={providers}>
+        <div className="bg-slate-200 p-4">
+          <AccountsView accounts={accounts} />
+        </div>
+      </GoCashStoryProvider>
+    </AnimateSharedLayout>
   );
 };

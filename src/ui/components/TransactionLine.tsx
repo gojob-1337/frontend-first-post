@@ -5,25 +5,26 @@ import {
 } from "../../domain/transactions/transaction";
 import classnames from "classnames";
 import CategoryIcon from "./CategoryIcon";
-type AdProps = {
+
+type TransactionsProps = {
   transaction: Transaction;
 };
 
-const TransactionLine = ({ transaction }: AdProps) => {
+const TransactionLine = ({ transaction }: TransactionsProps) => {
   return (
-    <div className="w-full h-16 flex flex-row justify-between items-center border-b-2">
-      <div className="flex flex-row items-center gap-8">
-        <CategoryIcon category={transaction.category} />
+    <div className="transaction-line">
+      <div className="transaction-line-label">
+        <CategoryIcon />
         <div>{transaction.label}</div>
       </div>
       <div
         className={classnames(
           transaction.type === TransactionTypeEnum.INCOMING
-            ? "text-green"
+            ? "text-green-500"
             : "text-red-500"
         )}
       >
-        {transaction.type === TransactionTypeEnum.INCOMING ? "+" : "-"}{" "}
+        {transaction.type === TransactionTypeEnum.INCOMING ? "+" : "-"}
         {transaction.amount} €
       </div>
     </div>

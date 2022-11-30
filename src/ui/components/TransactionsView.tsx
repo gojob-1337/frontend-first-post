@@ -31,11 +31,7 @@ const TransactionsView = ({ accountId }: TransactionsViewProps) => {
     return <LoadingTransactions />;
   }
 
-  return (
-    <div className="w-full flex-col gap-4">
-      {displayTransactionPerDate(transactions)}
-    </div>
-  );
+  return <>{displayTransactionPerDate(transactions)}</>;
 };
 
 const displayTransactionPerDate = (transactions: Transaction[]) => {
@@ -54,7 +50,7 @@ const displayTransactionPerDate = (transactions: Transaction[]) => {
   map.forEach((transactions, date) => {
     nodes.push(
       <div key={date}>
-        <div className="w-full leading-8  bg-slate-200 px-4">{date}</div>
+        <div className="transaction-date">{date}</div>
         {transactions.map((transaction) => (
           <TransactionLine transaction={transaction} key={transaction.id} />
         ))}

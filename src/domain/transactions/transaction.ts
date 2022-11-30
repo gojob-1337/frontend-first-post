@@ -5,7 +5,6 @@ export type Transaction = {
   type: TransactionTypeEnum;
   date: string;
   accountId: string;
-  category: TransactionGategoryEnum;
 };
 
 export enum TransactionTypeEnum {
@@ -13,8 +12,3 @@ export enum TransactionTypeEnum {
   OUTCOMING = "OUTCOMING",
 }
 
-export enum TransactionGategoryEnum {
-  UNKNOWN = "UNKNOWN",
-  FOOD = "FOOD",
-  FUN = "FUN",
-}

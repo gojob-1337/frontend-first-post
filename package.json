@@ -71,6 +71,7 @@
     "@typescript-eslint/parser": "^5.33.0",
     "babel-plugin-named-exports-order": "^0.0.2",
     "classnames": "^2.3.1",
+    "framer-motion": "^7.6.15",
     "prop-types": "^15.8.1",
     "react-query": "^3.39.2",
     "react-redux": "^7.2.6",
