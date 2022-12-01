@@ -1,8 +1,8 @@
 import React from "react";
 import {
   Transaction,
-  TransactionTypeEnum,
-} from "../../domain/transactions/transaction";
+  TransactionType,
+} from "../../domain/transaction/transaction";
 import classnames from "classnames";
 import CategoryIcon from "./CategoryIcon";
 
@@ -19,12 +19,12 @@ const TransactionLine = ({ transaction }: TransactionsProps) => {
       </div>
       <div
         className={classnames(
-          transaction.type === TransactionTypeEnum.INCOMING
+          transaction.type === TransactionType.INCOMING
             ? "text-green-500"
             : "text-red-500"
         )}
       >
-        {transaction.type === TransactionTypeEnum.INCOMING ? "+" : "-"}
+        {transaction.type === TransactionType.INCOMING ? "+" : "-"}
         {transaction.amount} €
       </div>
     </div>

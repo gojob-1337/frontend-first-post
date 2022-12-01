@@ -2,8 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import { Account } from "../../domain/account/account";
-import TransactionsView from "./TransactionsView";
-import { motion } from "framer-motion";
+
 type AccountsViewProps = {
   accounts: Account[];
 };
@@ -45,12 +44,6 @@ const AccountsView = ({ accounts }: AccountsViewProps) => {
               {account.balance.toLocaleString()} €
             </div>
           </div>
-
-          <motion.div layout>
-            {accountSelected === account.id && (
-              <TransactionsView accountId={accountSelected} />
-            )}
-          </motion.div>
         </div>
       ))}
     </div>

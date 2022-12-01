@@ -7,11 +7,7 @@ import {
 } from "@reduxjs/toolkit";
 import { accountReducer } from "../account/account.slice";
 import { AccountGateway } from "../gateways/account.gateway";
-import { TransactionGateway } from "../gateways/transaction.gateway";
-import { transactionReducer } from "../transactions/transaction.slice";
-
 export type Dependencies = {
-  transactionGateway: TransactionGateway;
   accountGateway: AccountGateway;
 };
 
@@ -20,7 +16,7 @@ export const createStore = (
   ...extraMiddlewares: Middleware[]
 ) => {
   return configureStore({
-    reducer: { transactions: transactionReducer, account: accountReducer },
+    reducer: { account: accountReducer },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {

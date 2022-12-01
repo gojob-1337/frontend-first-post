@@ -1,10 +1,8 @@
 import React from "react";
 import { createContext, ReactNode, useState } from "react";
 import { AccountGateway } from "./domain/gateways/account.gateway";
-import { TransactionGateway } from "./domain/gateways/transaction.gateway";
 import { createStore, GoCashStore } from "./domain/store/store";
 import { StubAccountGateway } from "./infrastructure/gateways/stub-account.gateway";
-import { StubTransactionGateway } from "./infrastructure/gateways/stub-transaction.gateway";
 
 function createDefaultContext<T extends object>() {
   const proxy = {} as T;
@@ -19,7 +17,6 @@ function createDefaultContext<T extends object>() {
 
 export interface GoCashContextProviders {
   store: GoCashStore;
-  transactionGateway: TransactionGateway;
   accountGateway: AccountGateway;
 }
 
@@ -34,7 +31,6 @@ interface GoCashStoreProviderProps {
 const GoCashProvider = ({ children }: GoCashStoreProviderProps) => {
   const [value] = useState<GoCashContextProviders>(() => {
     const gateways = {
-      transactionGateway: new StubTransactionGateway(),
       accountGateway: new StubAccountGateway(),
     };
 
