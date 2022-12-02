@@ -1,4 +1,4 @@
-import { InMemStore } from "../../../test/in-mem-store";
+import { InMemStore } from "../in-mem-store";
 import { setCurrentAccount } from "../../account/account.action";
 import { selectAccounts } from "../../account/account.selectors";
 import { makeAccount } from "../../factories";

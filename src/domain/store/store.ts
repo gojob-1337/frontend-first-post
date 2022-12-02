@@ -8,12 +8,9 @@ import {
 import { useDispatch } from "react-redux";
 import { accountReducer } from "../account/account.slice";
 import { AccountGateway } from "../gateways/account.gateway";
-import { TransactionGateway } from "../gateways/transaction.gateway";
-import { transactionReducer } from "../transaction/transaction.slice";
 
 export type Dependencies = {
   accountGateway: AccountGateway;
-  transactionGateway: TransactionGateway;
 };
 
 export const createStore = (
@@ -21,7 +18,7 @@ export const createStore = (
   ...extraMiddlewares: Middleware[]
 ) => {
   return configureStore({
-    reducer: { account: accountReducer, transactions: transactionReducer },
+    reducer: { account: accountReducer },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {

@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import {
   Transaction,
   TransactionType,
@@ -31,4 +31,4 @@ const TransactionLine = ({ transaction }: TransactionsProps) => {
   );
 };
 
-export default TransactionLine;
+export default TransactionLine;*/

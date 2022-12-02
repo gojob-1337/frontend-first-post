@@ -1,8 +1,16 @@
-import React from "react";
+/*import React from "react";
 import { Transaction } from "../../../domain/transaction/transaction";
 import TransactionLine from "./TransactionLine";
 
-export const displayTransactionPerDate = (transactions: Transaction[]) => {
+type TransactionsListProps = {
+  transactions: Transaction[];
+};
+
+const TransactionsList = ({ transactions }: TransactionsListProps) => {
+  return <>{renderTransactionList(transactions)}</>;
+};
+
+const renderTransactionList = (transactions: Transaction[]) => {
   const map = new Map<string, Transaction[]>();
   transactions.forEach((transaction) => {
     const date = transaction.date;
@@ -28,3 +36,6 @@ export const displayTransactionPerDate = (transactions: Transaction[]) => {
 
   return nodes;
 };
+
+export default TransactionsList;
+*/

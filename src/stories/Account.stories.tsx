@@ -6,10 +6,10 @@ import { AnimateSharedLayout } from "framer-motion";
 import GoCashProvider from "../GoCashProvider";
 
 export default {
-  title: "AccountView",
+  title: "Go Cash App",
 } as Meta;
 
-export const AccountViewStory: Story = () => {
+export const AccountsStory: Story = () => {
   return (
     <AnimateSharedLayout>
       <GoCashProvider>

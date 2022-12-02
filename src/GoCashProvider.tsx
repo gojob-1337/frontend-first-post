@@ -1,12 +1,10 @@
 import React from "react";
 import { createContext, ReactNode, useState } from "react";
-import { ACCOUNTS, TRANSACTIONS } from "./domain/fixtures";
+import { ACCOUNTS } from "./domain/fixtures";
 import { AccountGateway } from "./domain/gateways/account.gateway";
-import { TransactionGateway } from "./domain/gateways/transaction.gateway";
 import { createStore, GoCashStore } from "./domain/store/store";
 import GoCashWrapper from "./GoCashWrapper";
 import { InMemAccountGateway } from "./infrastructure/gateways/in-mem-account.gateway";
-import { InMemTransactionGateway } from "./infrastructure/gateways/in-mem-transactions.gateway";
 
 function createDefaultContext<T extends object>() {
   const proxy = {} as T;
@@ -22,7 +20,6 @@ function createDefaultContext<T extends object>() {
 export interface GoCashContextProviders {
   store: GoCashStore;
   accountGateway: AccountGateway;
-  transactionGateway: TransactionGateway;
 }
 
 export const GoCashContext = createContext<GoCashContextProviders>(
@@ -37,11 +34,9 @@ const GoCashProvider = ({ children }: GoCashStoreProviderProps) => {
   const [value] = useState<GoCashContextProviders>(() => {
     const gateways = {
       accountGateway: new InMemAccountGateway(),
-      transactionGateway: new InMemTransactionGateway(),
     };
 
     gateways.accountGateway.feedWithAccounts(ACCOUNTS);
-    gateways.transactionGateway.feedWithTransactions(TRANSACTIONS);
 
     return {
       ...gateways,

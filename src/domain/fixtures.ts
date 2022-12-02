@@ -1,6 +1,5 @@
 import { Account } from "./account/account";
-import { makeAccount, makeTransaction } from "./factories";
-import { TransactionType } from "./transaction/transaction";
+import { makeAccount } from "./factories";
 
 export const ACCOUNTS: Account[] = [
   makeAccount({
@@ -16,7 +15,7 @@ export const ACCOUNTS: Account[] = [
     balance: 0,
   }),
 ];
-
+/*
 export const TRANSACTIONS = [
   makeTransaction({
     label: "Péage",
@@ -96,4 +95,4 @@ export const TRANSACTIONS = [
     type: TransactionType.INCOMING,
   }),
 ];
-
+*/

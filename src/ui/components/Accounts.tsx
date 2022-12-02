@@ -10,8 +10,6 @@ import { useGoCashDispatch } from "../../domain/store/store";
 import { fetchAccounts } from "../../domain/store/usecases/fetch-accounts";
 import { useGoCashSelector } from "../../hooks/useGoCashSelector";
 
-import Transactions from "./Transacations";
-
 const AccountsView = () => {
   const selectedAccount = useGoCashSelector(selectCurrentAccount);
   const dispatch = useGoCashDispatch();
@@ -56,9 +54,6 @@ const AccountsView = () => {
               {account.balance.toLocaleString()} €
             </div>
           </div>
-          {account.id === selectedAccount?.id && (
-            <Transactions accountId={account.id} />
-          )}
         </div>
       ))}
     </div>

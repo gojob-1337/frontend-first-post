@@ -17,7 +17,7 @@ const goCashComponentsPlugin = ({ addComponents, theme }) => {
       "flex justify-center text-3xl items-center font-extrabold py-4"
     ),
     ".account-container": apply(
-      "flex flex-col w-full rounded-xl shadow-xl overflow-hidden"
+      "cursor-pointer flex flex-col w-full rounded-xl shadow-xl overflow-hidden"
     ),
     ".account-title": apply(
       "flex px-6 h-24 flex-row gap-2 text-center justify-between items-center"
