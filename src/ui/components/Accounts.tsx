@@ -1,36 +1,48 @@
 import classNames from "classnames";
-import React from "react";
-
+import React, { useEffect } from "react";
 import { Account } from "../../domain/account/account";
+import { setCurrentAccount } from "../../domain/account/account.action";
+import {
+  selectAccounts,
+  selectCurrentAccount,
+} from "../../domain/account/account.selectors";
+import { useGoCashDispatch } from "../../domain/store/store";
+import { fetchAccounts } from "../../domain/store/usecases/fetch-accounts";
+import { useGoCashSelector } from "../../hooks/useGoCashSelector";
 
-type AccountsViewProps = {
-  accounts: Account[];
-};
+import Transactions from "./Transacations";
 
-const AccountsView = ({ accounts }: AccountsViewProps) => {
-  const [accountSelected, setAccountSelected] =
-    React.useState<string | undefined>(undefined);
+const AccountsView = () => {
+  const selectedAccount = useGoCashSelector(selectCurrentAccount);
+  const dispatch = useGoCashDispatch();
 
+  useEffect(() => {
+    dispatch(fetchAccounts());
+  }, []);
+
+  const selectAccount = (account: Account | null) => {
+    dispatch(setCurrentAccount(account));
+  };
+
+  const accounts = useGoCashSelector(selectAccounts);
   return (
     <div className="accounts-container">
       <h1 className="company-name">GoCash</h1>
       <h1 className="accounts-title">Comptes de Mr John Doe</h1>
       {accounts.map((account) => (
-        <div className="account-container">
+        <div key={account.id} className="account-container">
           <div
             onClick={() =>
-              setAccountSelected(
-                accountSelected === account.id ? undefined : account.id
-              )
+              selectAccount(selectedAccount?.id === account.id ? null : account)
             }
             className={classNames(
-              account.id === accountSelected ? "bg-blue-200" : "bg-white",
+              account.id === selectedAccount?.id ? "bg-blue-200" : "bg-white",
               "account-title"
             )}
           >
             <div
               className={classNames(
-                account.id === accountSelected ? "font-extrabold" : ""
+                account.id === selectedAccount?.id ? "font-extrabold" : ""
               )}
             >
               {account.label}
@@ -44,6 +56,9 @@ const AccountsView = ({ accounts }: AccountsViewProps) => {
               {account.balance.toLocaleString()} €
             </div>
           </div>
+          {account.id === selectedAccount?.id && (
+            <Transactions accountId={account.id} />
+          )}
         </div>
       ))}
     </div>

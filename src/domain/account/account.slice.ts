@@ -1,20 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { GoCashState } from '../store/store';
+import { createSlice } from "@reduxjs/toolkit";
+import { GoCashState } from "../store/store";
 
-
-import { Account } from './account';
+import { Account } from "./account";
 
 interface AccountState {
   currentAccount: Account | null;
+  accounts: Account[];
 }
-const initialState = { currentAccount: null } as AccountState;
+const initialState = { currentAccount: null, accounts: [] } as AccountState;
 
 const accountSlice = createSlice({
-  name: 'account',
+  name: "account",
   initialState,
   reducers: {
-    setAccount: (state, action) => {
+    setCurrentAccount: (state, action) => {
       state.currentAccount = action.payload;
+    },
+    setAccounts: (state, action) => {
+      state.accounts = action.payload;
     },
   },
 });

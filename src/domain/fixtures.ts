@@ -1,5 +1,6 @@
 import { Account } from "./account/account";
-import { makeAccount } from "./factories";
+import { makeAccount, makeTransaction } from "./factories";
+import { TransactionType } from "./transaction/transaction";
 
 export const ACCOUNTS: Account[] = [
   makeAccount({
@@ -16,10 +17,10 @@ export const ACCOUNTS: Account[] = [
   }),
 ];
 
-/*export const TRANSACTIONS = [
+export const TRANSACTIONS = [
   makeTransaction({
     label: "Péage",
-    amount: 12.4,
+    amount: 134,
     accountId: ACCOUNTS[0].id,
     date: "2022-08-12",
   }),
@@ -95,4 +96,4 @@ export const ACCOUNTS: Account[] = [
     type: TransactionType.INCOMING,
   }),
 ];
-*/
+

@@ -1,42 +1,41 @@
+import { InMemStore } from "../../../test/in-mem-store";
+import { setCurrentAccount } from "../../account/account.action";
+import { selectAccounts } from "../../account/account.selectors";
+import { makeAccount } from "../../factories";
 
-import { StubStore } from '../../../test/stub-store';
-import { setAccount } from '../../account/account.action';
-import { selectAccount } from '../../account/account.selectors';
-import { makeAccount } from '../../factories';
+import { fetchAccounts } from "./fetch-accounts";
 
-import { fetchAccount } from './fetch-account';
-
-describe('fetchAccount', () => {
-  describe('Given an existing account', () => {
+describe("fetchAccount", () => {
+  describe("Given an existing account", () => {
     const account = makeAccount();
     const makeStore = () => {
-      const store = new StubStore();
-      store.accountGateway.feedWithAccount([account]);
+      const store = new InMemStore();
+      store.accountGateway.feedWithAccounts([account]);
       return store;
     };
 
-    it('should load the account in the store', async () => {
+    it("should load the accounts in the store", async () => {
       const store = makeStore();
 
-      await store.dispatch(fetchAccount(account.id));
+      await store.dispatch(fetchAccounts());
 
-      expect(store.select(selectAccount)).toEqual(account);
+      expect(store.select(selectAccounts)).toEqual([account]);
     });
 
-    describe('Given the account was already loaded', () => {
+    describe("Given the account was already loaded", () => {
       const makeLoadedStore = () => {
         const store = makeStore();
-        store.dispatch(setAccount(account));
+        store.dispatch(setCurrentAccount(account));
         return store;
       };
 
-      it('should load the newer version of the account', async () => {
+      it("should load the newer version of the account", async () => {
         const store = makeLoadedStore();
-        store.accountGateway.feedWithAccount([{ ...account, balance:100}]);
+        store.accountGateway.feedWithAccounts([{ ...account, balance: 100 }]);
 
-        await store.dispatch(fetchAccount(account.id));
+        await store.dispatch(fetchAccounts());
 
-        expect((store.select(selectAccount))!.balance).toBe(100);
+        expect(store.select(selectAccounts)[0]!.balance).toBe(100);
       });
     });
   });

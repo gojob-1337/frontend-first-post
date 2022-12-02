@@ -1,5 +1,5 @@
 import React from "react";
-import { Transaction } from "../../domain/transaction/transaction";
+import { Transaction } from "../../../domain/transaction/transaction";
 import TransactionLine from "./TransactionLine";
 
 export const displayTransactionPerDate = (transactions: Transaction[]) => {

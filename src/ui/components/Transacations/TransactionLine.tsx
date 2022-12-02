@@ -2,7 +2,7 @@ import React from "react";
 import {
   Transaction,
   TransactionType,
-} from "../../domain/transaction/transaction";
+} from "../../../domain/transaction/transaction";
 import classnames from "classnames";
 import CategoryIcon from "./CategoryIcon";
 
