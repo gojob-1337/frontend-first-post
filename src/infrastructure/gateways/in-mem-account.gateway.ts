@@ -1,7 +1,7 @@
 import { Account } from "../../domain/account/account";
 import { AccountGateway } from "../../domain/gateways/account.gateway";
 
-export class StubAccountGateway implements AccountGateway {
+export class InMemAccountGateway implements AccountGateway {
   public error: Error | null = null;
   private accountsStore: Map<string, Account>;
 
@@ -13,16 +13,16 @@ export class StubAccountGateway implements AccountGateway {
     return [...this.accountsStore.values()];
   }
 
-  feedWithAccount(accounts: Account[]) {
+  feedWithAccounts(accounts: Account[]) {
     this.accountsStore = new Map(
       accounts.map((account) => [account.id, account])
     );
   }
 
-  async fetchAccount(accountId: string): Promise<Account | undefined> {
+  async fetchAccounts(): Promise<Account[]> {
     await this.emulateServer();
 
-    return this.accounts.find((account) => account.id === accountId);
+    return this.accounts;
   }
 
   private async emulateServer() {

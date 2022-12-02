@@ -2,7 +2,7 @@ import React from "react";
 import {
   Transaction,
   TransactionType,
-} from "../../domain/transaction/transaction";
+} from "../../../domain/transaction/transaction";
 import classnames from "classnames";
 import CategoryIcon from "./CategoryIcon";
 
@@ -12,7 +12,7 @@ type TransactionsProps = {
 
 const TransactionLine = ({ transaction }: TransactionsProps) => {
   return (
-    <div className="transaction-line">
+    <div className={classnames("transaction-line")}>
       <div className="transaction-line-label">
         <CategoryIcon />
         <div>{transaction.label}</div>
@@ -24,8 +24,10 @@ const TransactionLine = ({ transaction }: TransactionsProps) => {
             : "text-red-500"
         )}
       >
-        {transaction.type === TransactionType.INCOMING ? "+" : "-"}
-        {transaction.amount} €
+        <div className="flex flex-row items-center gap-4">
+          {transaction.type === TransactionType.INCOMING ? "+" : "-"}
+          {transaction.amount} €
+        </div>
       </div>
     </div>
   );
